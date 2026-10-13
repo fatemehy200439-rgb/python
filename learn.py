@@ -94,7 +94,7 @@
 #     print("ادامه بده و هر روز بهتر شو🚀")
 #     print("=================================")
     
-#     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#
     
  #class_average   
     
@@ -109,19 +109,6 @@
 # avarage = total / grade_counter
 # print(f'Class Avarage is {avarage}')
 
-#...........................................#
-
-
-# total = 0
-# grade_counter = 0
-# grades = [98,23,56,45,75,95,85,100,52,65]
-
-# for grade in grades:
-#     total += grade
-#     grade_counter += 1
-    
-# avarage = total / grade_counter
-# print(f'Class Avarage is {avarage}')
 
 #.....................................#
 
