@@ -133,3 +133,93 @@
 #     print('No Grade Were Entered')
 
 #.....................................................#
+
+#shop
+
+
+from decimal import Decimal
+from statistics import mean, median, mode
+ 
+print("===سیستم مدیرت فروشگاه===")
+sales = []
+count = 0
+ 
+ #Data_input_loop
+ 
+while True:
+    text = input(" مبلغ فروش را وارد کنید(برای خروج'q'): ")
+
+    if text == "q":
+        break
+
+#invalid_input_check
+
+    if not text.replace(".", "", 1).isdigit():
+        print("وورودی نامعتبر!")
+        continue
+
+#amount_validation
+
+    amount = Decimal(text)
+    
+    if amount > 0 and not amount > 10000:
+        sales.append(amount)
+        count +=1
+    else:
+        print(".مبلغ باید بین 0 و 10000باشد")
+        
+#calculatng_the_invoice_discount
+
+print("\n--- فاکتور ---")            
+total = Decimal("0")
+tax_rate = Decimal("0.10")
+
+for i in range(len(sales)):
+    price = sales[i]
+
+    if price >= 1000:
+        discount = Decimal("0.20")
+    elif price >= 500:
+        discount = Decimal("0.10")
+    elif price >= 100 or price == 50:
+        discount = Decimal("0.05")
+    else:
+        discount = Decimal("0")
+        
+    final = price - price * discount
+    total += final
+    print("کالا", i + 1, ":", price, " -> بعد از تخفیف:", final)                   
+    
+#print
+#Tax
+tax = total * tax_rate
+grand_total = total + tax
+ 
+print("تعداد فروش", count, "جمع کل", total, sep=" | ") 
+print("(%10) مالیات:", round(tax, 2))
+print("مبلغ نهایی با مالیات:", round(grand_total, 2))
+print("پایان فاکتور", end=" ***\n")
+     
+#counter
+
+print("\nشمارش معکوس بستن صندوق:")
+counter = 3
+while counter > 0:
+         print(counter, end=" ")
+         counter -= 1
+print("بسته شد!")
+     
+     #sales_statistics
+     
+if len(sales) > 0:
+    print("\n=== آمار فروش ===")
+    print("میانگین:", round(mean(sales), 2))
+    print("میانه:", median(sales))
+    try:
+            print("نما:", mode(sales))
+    except Exception:
+             print("نما:وجود ندارد")
+else:
+         print("هیچ فروشی ثبت نشد.")                 
+         
+         
