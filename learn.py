@@ -134,92 +134,140 @@
 
 #.....................................................#
 
-#shop
+# #shop
 
 
-from decimal import Decimal
-from statistics import mean, median, mode
+# from decimal import Decimal
+# from statistics import mean, median, mode
  
-print("===سیستم مدیرت فروشگاه===")
-sales = []
-count = 0
+# print("===سیستم مدیرت فروشگاه===")
+# sales = []
+# count = 0
  
- #Data_input_loop
+#  #Data_input_loop
  
-while True:
-    text = input(" مبلغ فروش را وارد کنید(برای خروج'q'): ")
+# while True:
+#     text = input(" مبلغ فروش را وارد کنید(برای خروج'q'): ")
 
-    if text == "q":
-        break
+#     if text == "q":
+#         break
 
-#invalid_input_check
+# #invalid_input_check
 
-    if not text.replace(".", "", 1).isdigit():
-        print("وورودی نامعتبر!")
-        continue
+#     if not text.replace(".", "", 1).isdigit():
+#         print("وورودی نامعتبر!")
+#         continue
 
-#amount_validation
+# #amount_validation
 
-    amount = Decimal(text)
+#     amount = Decimal(text)
     
-    if amount > 0 and not amount > 10000:
-        sales.append(amount)
-        count +=1
-    else:
-        print(".مبلغ باید بین 0 و 10000باشد")
+#     if amount > 0 and not amount > 10000:
+#         sales.append(amount)
+#         count +=1
+#     else:
+#         print(".مبلغ باید بین 0 و 10000باشد")
         
-#calculatng_the_invoice_discount
+# #calculatng_the_invoice_discount
 
-print("\n--- فاکتور ---")            
-total = Decimal("0")
-tax_rate = Decimal("0.10")
+# print("\n--- فاکتور ---")            
+# total = Decimal("0")
+# tax_rate = Decimal("0.10")
 
-for i in range(len(sales)):
-    price = sales[i]
+# for i in range(len(sales)):
+#     price = sales[i]
 
-    if price >= 1000:
-        discount = Decimal("0.20")
-    elif price >= 500:
-        discount = Decimal("0.10")
-    elif price >= 100 or price == 50:
-        discount = Decimal("0.05")
-    else:
-        discount = Decimal("0")
+#     if price >= 1000:
+#         discount = Decimal("0.20")
+#     elif price >= 500:
+#         discount = Decimal("0.10")
+#     elif price >= 100 or price == 50:
+#         discount = Decimal("0.05")
+#     else:
+#         discount = Decimal("0")
         
-    final = price - price * discount
-    total += final
-    print("کالا", i + 1, ":", price, " -> بعد از تخفیف:", final)                   
+#     final = price - price * discount
+#     total += final
+#     print("کالا", i + 1, ":", price, " -> بعد از تخفیف:", final)                   
     
-#print
-#Tax
-tax = total * tax_rate
-grand_total = total + tax
+# #print
+# #Tax
+# tax = total * tax_rate
+# grand_total = total + tax
  
-print("تعداد فروش", count, "جمع کل", total, sep=" | ") 
-print("(%10) مالیات:", round(tax, 2))
-print("مبلغ نهایی با مالیات:", round(grand_total, 2))
-print("پایان فاکتور", end=" ***\n")
+# print("تعداد فروش", count, "جمع کل", total, sep=" | ") 
+# print("(%10) مالیات:", round(tax, 2))
+# print("مبلغ نهایی با مالیات:", round(grand_total, 2))
+# print("پایان فاکتور", end=" ***\n")
      
-#counter
+# #counter
 
-print("\nشمارش معکوس بستن صندوق:")
-counter = 3
-while counter > 0:
-         print(counter, end=" ")
-         counter -= 1
-print("بسته شد!")
+# print("\nشمارش معکوس بستن صندوق:")
+# counter = 3
+# while counter > 0:
+#          print(counter, end=" ")
+#          counter -= 1
+# print("بسته شد!")
      
-     #sales_statistics
+#      #sales_statistics
      
-if len(sales) > 0:
-    print("\n=== آمار فروش ===")
-    print("میانگین:", round(mean(sales), 2))
-    print("میانه:", median(sales))
-    try:
-            print("نما:", mode(sales))
-    except Exception:
-             print("نما:وجود ندارد")
-else:
-         print("هیچ فروشی ثبت نشد.")                 
+# if len(sales) > 0:
+#     print("\n=== آمار فروش ===")
+#     print("میانگین:", round(mean(sales), 2))
+#     print("میانه:", median(sales))
+#     try:
+#             print("نما:", mode(sales))
+#     except Exception:
+#              print("نما:وجود ندارد")
+# else:
+#          print("هیچ فروشی ثبت نشد.")                 
          
-         
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
+  # dice_creative.py
+"""Roll a six-sided die 6,000,000 times."""
+import random
+
+# face frequency counters
+frequency1 = 0
+frequency2 = 0
+frequency3 = 0
+frequency4 = 0
+frequency5 = 0
+frequency6 = 0
+
+# creative: count how many times we got an even number
+even_count = 0
+
+# 6,000,000 die rolls
+for roll in range(6_000_000):
+    face = random.randrange(1, 7)
+
+    # increment appropriate face counter
+    if face == 1:
+        frequency1 += 1
+    elif face == 2:
+        frequency2 += 1
+        even_count += 1
+    elif face == 3:
+        frequency3 += 1
+    elif face == 4:
+        frequency4 += 1
+        even_count += 1
+    elif face == 5:
+        frequency5 += 1
+    elif face == 6:
+        frequency6 += 1
+        even_count += 1
+
+print("Face   Frequency")
+print("1     ", frequency1, )
+print("2     ", frequency2, )
+print("3     ", frequency3, )
+print("4     ", frequency4, )
+print("5     ", frequency5, )
+print("6     ", frequency6, )
+
+print()
+print("Total:", frequency1 + frequency2 + frequency3 + frequency4 + frequency5 + frequency6)
+print("Even numbers (2, 4, 6):", even_count)
+print("Odd numbers (1, 3, 5):", 6_000_000 - even_count)       
