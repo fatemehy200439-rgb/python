@@ -287,6 +287,7 @@ def get_guess():
         guess = int(input("حدست چیه؟"))
         if guess < 1 or guess > 50:
             print("عدد باید بین 1 تا 50 باشه!")
+               # ask again if the number is out of range
             continue
         return guess
     
