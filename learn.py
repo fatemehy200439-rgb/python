@@ -223,51 +223,125 @@
 #          print("هیچ فروشی ثبت نشد.")                 
          
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
-  # dice_creative.py
-"""Roll a six-sided die 6,000,000 times."""
-import random
+#   # dice_creative.py
+# """Roll a six-sided die 6,000,000 times."""
+# import random
 
-# face frequency counters
-frequency1 = 0
-frequency2 = 0
-frequency3 = 0
-frequency4 = 0
-frequency5 = 0
-frequency6 = 0
+# # face frequency counters
+# frequency1 = 0
+# frequency2 = 0
+# frequency3 = 0
+# frequency4 = 0
+# frequency5 = 0
+# frequency6 = 0
 
-# creative: count how many times we got an even number
-even_count = 0
+# # creative: count how many times we got an even number
+# even_count = 0
 
-# 6,000,000 die rolls
-for roll in range(6_000_000):
-    face = random.randrange(1, 7)
+# # 6,000,000 die rolls
+# for roll in range(6_000_000):
+#     face = random.randrange(1, 7)
 
-    # increment appropriate face counter
-    if face == 1:
-        frequency1 += 1
-    elif face == 2:
-        frequency2 += 1
-        even_count += 1
-    elif face == 3:
-        frequency3 += 1
-    elif face == 4:
-        frequency4 += 1
-        even_count += 1
-    elif face == 5:
-        frequency5 += 1
-    elif face == 6:
-        frequency6 += 1
-        even_count += 1
+#     # increment appropriate face counter
+#     if face == 1:
+#         frequency1 += 1
+#     elif face == 2:
+#         frequency2 += 1
+#         even_count += 1
+#     elif face == 3:
+#         frequency3 += 1
+#     elif face == 4:
+#         frequency4 += 1
+#         even_count += 1
+#     elif face == 5:
+#         frequency5 += 1
+#     elif face == 6:
+#         frequency6 += 1
+#         even_count += 1
 
-print("Face   Frequency")
-print("1     ", frequency1, )
-print("2     ", frequency2, )
-print("3     ", frequency3, )
-print("4     ", frequency4, )
-print("5     ", frequency5, )
-print("6     ", frequency6, )
+# print("Face   Frequency")
+# print("1     ", frequency1, )
+# print("2     ", frequency2, )
+# print("3     ", frequency3, )
+# print("4     ", frequency4, )
+# print("5     ", frequency5, )
+# print("6     ", frequency6, )
 
-print()
-print("Total:", frequency1 + frequency2 + frequency3 + frequency4 + frequency5 + frequency6)
-print("Even numbers (2, 4, 6):", even_count)
-print("Odd numbers (1, 3, 5):", 6_000_000 - even_count)       
+# print()
+# print("Total:", frequency1 + frequency2 + frequency3 + frequency4 + frequency5 + frequency6)
+# print("Even numbers (2, 4, 6):", even_count)
+# print("Odd numbers (1, 3, 5):", 6_000_000 - even_count)       
+#???????????????????????????????????????#
+
+# number Gussing Game
+# the computer picks a random number and the player tries to guess it.
+# The prize gets smaller with every wrong guess.
+
+from random import randint
+from decimal import Decimal
+
+
+def get_guess():
+    # Ask the player for a number until it is between 1 and 50
+    while True:
+        guess = int(input("حدست چیه؟"))
+        if guess < 1 or guess > 50:
+            print("عدد باید بین 1 تا 50 باشه!")
+            continue
+        return guess
+    
+    
+    
+def play_round():
+    # Play one round and return how many tries it took 
+    secret = randint(1, 50)
+    tries = 0
+    
+    while True:
+        guess = get_guess()
+        tries += 1
+        
+        if guess == secret:
+            print("درسته ! حدس شماره", tries)
+            break
+        elif guess < secret:
+            print("بزرگتر بگو!")
+        else:
+            print("کوچکتر بگو!")
+            
+    return tries        
+
+
+def main():
+    # Play 3 rounds and show the final results
+    total_tries = 0
+    total_prize = Decimal("0.00")
+    best = 100
+    worst = 0
+    
+    print("عدد بین 1تا50" ,"بازی حدس عدد", sep=" | ", end="\n\n")
+    
+    for round_number in range(1, 4):
+        print("---دور", round_number, "---")
+        tries = play_round()
+        
+        # Prize starts at 10.00 and drops 1.50 for each extra guess
+    
+        prize = Decimal("10.00") - Decimal("1.50") * (tries - 1)
+        if prize < 0:
+            prize = Decimal("0.00")
+            
+        total_tries += tries
+        total_prize += prize
+        best = min(best, tries)
+        worst = max(worst, tries)
+        
+        print("جایزه این دور:", prize, "دلار")
+        
+    print("========== نتیجه ==========")
+    print("میانگین حدس ها:", total_tries / 3)
+    print("بهترین دور:", best, "حدس")
+    print("بدترین دور:", worst, "حدس")
+    print("مجموع جایزه:", total_prize, "دلار")
+            
+main()
