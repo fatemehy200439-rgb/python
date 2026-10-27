@@ -273,76 +273,168 @@
 # print("Odd numbers (1, 3, 5):", 6_000_000 - even_count)       
 #???????????????????????????????????????#
 
-# number Gussing Game
-# the computer picks a random number and the player tries to guess it.
-# The prize gets smaller with every wrong guess.
+# # number Gussing Game
+# # the computer picks a random number and the player tries to guess it.
+# # The prize gets smaller with every wrong guess.
 
-from random import randint
-from decimal import Decimal
+# from random import randint
+# from decimal import Decimal
 
 
-def get_guess():
-    # Ask the player for a number until it is between 1 and 50
+# def get_guess():
+#     # Ask the player for a number until it is between 1 and 50
+#     while True:
+#         guess = int(input("حدست چیه؟"))
+#         if guess < 1 or guess > 50:
+#             print("عدد باید بین 1 تا 50 باشه!")
+#                # ask again if the number is out of range
+#             continue
+#         return guess
+    
+    
+    
+# def play_round():
+#     # Play one round and return how many tries it took 
+#     secret = randint(1, 50)
+#     tries = 0
+    
+#     while True:
+#         guess = get_guess()
+#         tries += 1
+        
+#         if guess == secret:
+#             print("درسته ! حدس شماره", tries)
+#             break
+#         elif guess < secret:
+#             print("بزرگتر بگو!")
+#         else:
+#             print("کوچکتر بگو!")
+            
+#     return tries        
+
+
+# def main():
+#     # Play 3 rounds and show the final results
+#     total_tries = 0
+#     total_prize = Decimal("0.00")
+#     best = 100
+#     worst = 0
+    
+#     print("عدد بین 1تا50" ,"بازی حدس عدد", sep=" | ", end="\n\n")
+    
+#     for round_number in range(1, 4):
+#         print("---دور", round_number, "---")
+#         tries = play_round()
+        
+#         # Prize starts at 10.00 and drops 1.50 for each extra guess
+    
+#         prize = Decimal("10.00") - Decimal("1.50") * (tries - 1)
+#         if prize < 0:
+#             prize = Decimal("0.00")
+            
+#         total_tries += tries
+#         total_prize += prize
+#         best = min(best, tries)
+#         worst = max(worst, tries)
+        
+#         print("جایزه این دور:", prize, "دلار")
+        
+#     print("========== نتیجه ==========")
+#     print("میانگین حدس ها:", total_tries / 3)
+#     print("بهترین دور:", best, "حدس")
+#     print("بدترین دور:", worst, "حدس")
+#     print("مجموع جایزه:", total_prize, "دلار")
+            
+# main()
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#
+
+
+import random
+import time
+
+#Dice symbols
+DICE = {1: "⚀", 2: "⚁", 3: "⚂", 4: "⚃", 5: "⚄", 6: "⚅"}
+
+# Roll twe dice and return them as a tuple 
+def roll_dice():
+    return (random.randrange(1, 7), random.randrange(1, 7))
+
+# show the dice with a rolling effect
+def display_dice(dice):
+    print()
+    for _ in range(8):
+        a = random.choice(list(DICE.values()))
+        b = random.choice(list(DICE.values()))
+        print(f"\r   {a}  {b}", end="", flush=True)
+        time.sleep(0.1)
+    die1, die2 = dice
+    print(f"\r   {DICE[die1]}  {DICE[die2]}   Total: {sum(dice)}")
+
+# ask the player for a valid bet 
+def ask_bet(balance):
     while True:
-        guess = int(input("حدست چیه؟"))
-        if guess < 1 or guess > 50:
-            print("عدد باید بین 1 تا 50 باشه!")
-               # ask again if the number is out of range
-            continue
-        return guess
-    
-    
-    
+        text = input(f"\n💰 Balance: {balance} | Your bet (0 to quit): ")
+        if text.isdigit() and 0 <= int(text) <= balance:
+            return int(text)
+        print("Invalid bet, try again.")
+
+# play one round (True = win, False = loss)
 def play_round():
-    # Play one round and return how many tries it took 
-    secret = randint(1, 50)
-    tries = 0
+#First roll: 7 or 11 wins, 2, 3 or 12 loses, anything else is the point     
+    first = roll_dice()
+    display_dice(first)
+    total = sum(first)
+
+    if total in (7, 11):
+        print("⚡ Natural! You win right away. 🎉")
+        return True
+    if total in (2, 3, 12):
+        print("💥 Craps! You lose right away. 😭")
+        return False
+
+    point = total
+    print(f"🎯 Your point is {point}. Roll it again before a 7!")
     
+    # Next rolls: the point wins, a 7 loses, otherwise roll again
     while True:
-        guess = get_guess()
-        tries += 1
-        
-        if guess == secret:
-            print("درسته ! حدس شماره", tries)
-            break
-        elif guess < secret:
-            print("بزرگتر بگو!")
-        else:
-            print("کوچکتر بگو!")
-            
-    return tries        
+        input("Press Enter to roll...")
+        dice = roll_dice()
+        display_dice(dice)
+        total = sum(dice)
+        if total == point:
+            print("🏆 You made your point! 🥳")
+            return True
+        if total == 7:
+            print("☠️ Seven out! 😵")
+            return False
 
-
+# main loop: balance, balance, bets and statistics
 def main():
-    # Play 3 rounds and show the final results
-    total_tries = 0
-    total_prize = Decimal("0.00")
-    best = 100
-    worst = 0
-    
-    print("عدد بین 1تا50" ,"بازی حدس عدد", sep=" | ", end="\n\n")
-    
-    for round_number in range(1, 4):
-        print("---دور", round_number, "---")
-        tries = play_round()
-        
-        # Prize starts at 10.00 and drops 1.50 for each extra guess
-    
-        prize = Decimal("10.00") - Decimal("1.50") * (tries - 1)
-        if prize < 0:
-            prize = Decimal("0.00")
-            
-        total_tries += tries
-        total_prize += prize
-        best = min(best, tries)
-        worst = max(worst, tries)
-        
-        print("جایزه این دور:", prize, "دلار")
-        
-    print("========== نتیجه ==========")
-    print("میانگین حدس ها:", total_tries / 3)
-    print("بهترین دور:", best, "حدس")
-    print("بدترین دور:", worst, "حدس")
-    print("مجموع جایزه:", total_prize, "دلار")
-            
+    balance = 100
+    wins = losses = 0
+    print("=== Welcome to Craps ===")
+
+    while balance > 0:
+        bet = ask_bet(balance)
+        if bet == 0:
+            break
+        if play_round():
+            balance += bet
+            wins += 1
+        else:
+            balance -= bet
+            losses += 1
+
+    print("\n=== Game over ===")
+    print(f"Final balance: {balance} | Wins: {wins} | Losses: {losses}")
+    if balance <= 0:
+        print("You're broke! Better luck next time 😅")
+
+# run the program
 main()
+
+
+
+
+
+
