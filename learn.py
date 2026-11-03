@@ -348,91 +348,91 @@
 # main()
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$#
 
-#craps
+# #craps
 
-import random
-import time
+# import random
+# import time
 
-#Dice symbols
-DICE = {1: "⚀", 2: "⚁", 3: "⚂", 4: "⚃", 5: "⚄", 6: "⚅"}
+# #Dice symbols
+# DICE = {1: "⚀", 2: "⚁", 3: "⚂", 4: "⚃", 5: "⚄", 6: "⚅"}
 
-# Roll twe dice and return them as a tuple 
-def roll_dice():
-    return (random.randrange(1, 7), random.randrange(1, 7))
+# # Roll twe dice and return them as a tuple 
+# def roll_dice():
+#     return (random.randrange(1, 7), random.randrange(1, 7))
 
-# show the dice with a rolling effect
-def display_dice(dice):
-    print()
-    for _ in range(8):
-        a = random.choice(list(DICE.values()))
-        b = random.choice(list(DICE.values()))
-        print(f"\r   {a}  {b}", end="", flush=True)
-        time.sleep(0.1)
-    die1, die2 = dice
-    print(f"\r   {DICE[die1]}  {DICE[die2]}   Total: {sum(dice)}")
+# # show the dice with a rolling effect
+# def display_dice(dice):
+#     print()
+#     for _ in range(8):
+#         a = random.choice(list(DICE.values()))
+#         b = random.choice(list(DICE.values()))
+#         print(f"\r   {a}  {b}", end="", flush=True)
+#         time.sleep(0.1)
+#     die1, die2 = dice
+#     print(f"\r   {DICE[die1]}  {DICE[die2]}   Total: {sum(dice)}")
 
-# ask the player for a valid bet 
-def ask_bet(balance):
-    while True:
-        text = input(f"\n💰 Balance: {balance} | Your bet (0 to quit): ")
-        if text.isdigit() and 0 <= int(text) <= balance:
-            return int(text)
-        print("Invalid bet, try again.")
+# # ask the player for a valid bet 
+# def ask_bet(balance):
+#     while True:
+#         text = input(f"\n💰 Balance: {balance} | Your bet (0 to quit): ")
+#         if text.isdigit() and 0 <= int(text) <= balance:
+#             return int(text)
+#         print("Invalid bet, try again.")
 
-# play one round (True = win, False = loss)
-def play_round():
-#First roll: 7 or 11 wins, 2, 3 or 12 loses, anything else is the point     
-    first = roll_dice()
-    display_dice(first)
-    total = sum(first)
+# # play one round (True = win, False = loss)
+# def play_round():
+# #First roll: 7 or 11 wins, 2, 3 or 12 loses, anything else is the point     
+#     first = roll_dice()
+#     display_dice(first)
+#     total = sum(first)
 
-    if total in (7, 11):
-        print("⚡ Natural! You win right away. 🎉")
-        return True
-    if total in (2, 3, 12):
-        print("💥 Craps! You lose right away. 😭")
-        return False
+#     if total in (7, 11):
+#         print("⚡ Natural! You win right away. 🎉")
+#         return True
+#     if total in (2, 3, 12):
+#         print("💥 Craps! You lose right away. 😭")
+#         return False
 
-    point = total
-    print(f"🎯 Your point is {point}. Roll it again before a 7!")
+#     point = total
+#     print(f"🎯 Your point is {point}. Roll it again before a 7!")
     
-    # Next rolls: the point wins, a 7 loses, otherwise roll again
-    while True:
-        input("Press Enter to roll...")
-        dice = roll_dice()
-        display_dice(dice)
-        total = sum(dice)
-        if total == point:
-            print("🏆 You made your point! 🥳")
-            return True
-        if total == 7:
-            print("☠️ Seven out! 😵")
-            return False
+#     # Next rolls: the point wins, a 7 loses, otherwise roll again
+#     while True:
+#         input("Press Enter to roll...")
+#         dice = roll_dice()
+#         display_dice(dice)
+#         total = sum(dice)
+#         if total == point:
+#             print("🏆 You made your point! 🥳")
+#             return True
+#         if total == 7:
+#             print("☠️ Seven out! 😵")
+#             return False
 
-# main loop: balance, balance, bets and statistics
-def main():
-    balance = 100
-    wins = losses = 0
-    print("=== Welcome to Craps ===")
+# # main loop: balance, balance, bets and statistics
+# def main():
+#     balance = 100
+#     wins = losses = 0
+#     print("=== Welcome to Craps ===")
 
-    while balance > 0:
-        bet = ask_bet(balance)
-        if bet == 0:
-            break
-        if play_round():
-            balance += bet
-            wins += 1
-        else:
-            balance -= bet
-            losses += 1
+#     while balance > 0:
+#         bet = ask_bet(balance)
+#         if bet == 0:
+#             break
+#         if play_round():
+#             balance += bet
+#             wins += 1
+#         else:
+#             balance -= bet
+#             losses += 1
 
-    print("\n=== Game over ===")
-    print(f"Final balance: {balance} | Wins: {wins} | Losses: {losses}")
-    if balance <= 0:
-        print("You're broke! Better luck next time 😅")
+#     print("\n=== Game over ===")
+#     print(f"Final balance: {balance} | Wins: {wins} | Losses: {losses}")
+#     if balance <= 0:
+#         print("You're broke! Better luck next time 😅")
 
-# run the program
-main()
+# # run the program
+# main()
 
 
 
